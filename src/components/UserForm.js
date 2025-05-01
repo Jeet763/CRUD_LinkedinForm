@@ -1,4 +1,7 @@
 import React from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addUser, updateUser } from '../features/users/usersSlice';
 import { useForm, useFieldArray } from 'react-hook-form';
 import {
   TextField,
@@ -50,7 +53,7 @@ const UserForm = ({ existingUser, onClose }) => {
     name: 'experience',
   });
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     if (existingUser) {
       dispatch(updateUser({ id: existingUser.id, ...data }));
     } else {
@@ -140,7 +143,7 @@ const UserForm = ({ existingUser, onClose }) => {
                   <TextField
                     label="Degree"
                     fullWidth
-                    {...register(education.${index}.degree, {
+                    {...register(`education.${index}.degree`, {
                       required: 'Degree is required',
                     })}
                     error={!!errors.education?.[index]?.degree}
@@ -151,7 +154,7 @@ const UserForm = ({ existingUser, onClose }) => {
                   <TextField
                     label="College"
                     fullWidth
-                    {...register(education.${index}.college, {
+                    {...register(`education.${index}.college`, {
                       required: 'College is required',
                     })}
                     error={!!errors.education?.[index]?.college}
@@ -163,7 +166,7 @@ const UserForm = ({ existingUser, onClose }) => {
                     label="Start Year"
                     type="number"
                     fullWidth
-                    {...register(education.${index}.startYear, {
+                    {...register(`education.${index}.startYear`, {
                       required: 'Start year is required',
                     })}
                     error={!!errors.education?.[index]?.startYear}
@@ -175,7 +178,7 @@ const UserForm = ({ existingUser, onClose }) => {
                     label="End Year"
                     type="number"
                     fullWidth
-                    {...register(education.${index}.endYear, {
+                    {...register(`education.${index}.endYear`, {
                       required: 'End year is required',
                     })}
                     error={!!errors.education?.[index]?.endYear}
@@ -194,7 +197,12 @@ const UserForm = ({ existingUser, onClose }) => {
             variant="outlined"
             startIcon={<Add />}
             onClick={() =>
-              appendEducation({ degree: '', college: '', startYear: '', endYear: '' })
+              appendEducation({
+                degree: '',
+                college: '',
+                startYear: '',
+                endYear: '',
+              })
             }
           >
             Add Education
@@ -211,7 +219,7 @@ const UserForm = ({ existingUser, onClose }) => {
                   <TextField
                     label="Company"
                     fullWidth
-                    {...register(experience.${index}.company, {
+                    {...register(`experience.${index}.company`, {
                       required: 'Company is required',
                     })}
                     error={!!errors.experience?.[index]?.company}
@@ -224,7 +232,7 @@ const UserForm = ({ existingUser, onClose }) => {
                     type="month"
                     fullWidth
                     InputLabelProps={{ shrink: true }}
-                    {...register(experience.${index}.startDate, {
+                    {...register(`experience.${index}.startDate`, {
                       required: 'Start date is required',
                     })}
                     error={!!errors.experience?.[index]?.startDate}
@@ -237,7 +245,7 @@ const UserForm = ({ existingUser, onClose }) => {
                     type="month"
                     fullWidth
                     InputLabelProps={{ shrink: true }}
-                    {...register(experience.${index}.endDate, {
+                    {...register(`experience.${index}.endDate`, {
                       required: 'End date is required',
                     })}
                     error={!!errors.experience?.[index]?.endDate}
@@ -256,7 +264,11 @@ const UserForm = ({ existingUser, onClose }) => {
             variant="outlined"
             startIcon={<Add />}
             onClick={() =>
-              appendExperience({ company: '', startDate: '', endDate: '' })
+              appendExperience({
+                company: '',
+                startDate: '',
+                endDate: '',
+              })
             }
           >
             Add Experience
@@ -276,4 +288,4 @@ const UserForm = ({ existingUser, onClose }) => {
   );
 };
 
-export default UserForm;
+export default UserForm;
